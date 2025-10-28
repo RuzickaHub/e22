@@ -1,9 +1,80 @@
 {
-  "name": "Můj Web Projekt (custom)",
-  "short_name": "MujWeb",
+  "name": "Jakub Růžička - Portfolio",
+  "short_name": "RJ Portfolio",
+  "description": "Portfolio grafického designéra a webového vývojáře - Graphic Design, Webdesign, Branding, SEO",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#1a1a1a",
-  "description": "Upravený web exportovaný z GrapesJS."
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "design", "portfolio"],
+  "lang": "cs",
+  "dir": "ltr",
+  "scope": "./",
+  "screenshots": [
+    {
+      "src": "./screenshots/desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "./screenshots/mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Služby",
+      "short_name": "Služby",
+      "description": "Zobrazit nabízené služby",
+      "url": "./#services",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "short_name": "Projekty",
+      "description": "Prohlédnout portfolio projektů",
+      "url": "./#portfolio",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Kontakt",
+      "short_name": "Kontakt",
+      "description": "Kontaktovat mě",
+      "url": "./#contact",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }
