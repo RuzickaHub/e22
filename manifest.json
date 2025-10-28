@@ -1,0 +1,9 @@
+{
+  "name": "Můj Web Projekt (custom)",
+  "short_name": "MujWeb",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a1a1a",
+  "description": "Upravený web exportovaný z GrapesJS."
+}
