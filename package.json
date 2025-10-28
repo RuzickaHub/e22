@@ -1,0 +1,44 @@
+{
+  "name": "portfolio-ruzicka-jakub",
+  "version": "1.0.0",
+  "description": "Portfolio webové stránky pro grafického designéra a webového vývojáře",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=3000 --host=localhost",
+    "build": "npm run minify-css && npm run minify-js",
+    "minify-css": "cleancss -o style.min.css style.css",
+    "minify-js": "terser scripts/app.js -o scripts/app.min.js --compress --mangle",
+    "serve": "python -m http.server 8000",
+    "deploy": "gh-pages -d .",
+    "lint": "eslint scripts/app.js",
+    "format": "prettier --write \"**/*.{html,css,js,json,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RuzickaHub/e22.git"
+  },
+  "keywords": [
+    "portfolio",
+    "graphic-design",
+    "webdesign",
+    "branding",
+    "seo",
+    "ui-ux",
+    "responsive",
+    "pwa"
+  ],
+  "author": "Jakub Růžička <mail@ruzickajakub.cz>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RuzickaHub/e22/issues"
+  },
+  "homepage": "https://ruzickahub.github.io/e22/",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "eslint": "^8.50.0",
+    "gh-pages": "^6.0.0",
+    "live-server": "^1.2.2",
+    "prettier": "^3.0.3",
+    "terser": "^5.20.0"
+  }
+}
