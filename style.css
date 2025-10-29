@@ -948,5 +948,17 @@ img {
   .navbar,
   .gsap-progress-bar {
     display: none;
+
+     /*animations*/
+     .navbar.navbar--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+:root { --navbar-height: 0px; }
+body { padding-top: var(--navbar-height); transition: padding-top .2s ease; }
+
   }
 }
