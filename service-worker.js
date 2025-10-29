@@ -1,207 +1,192 @@
-// Service Worker pro Portfolio Web
-// Verze cache
-const CACHE_NAME = 'portfolio-rj-v1';
-const RUNTIME_CACHE = 'portfolio-runtime-v1';
+// service-worker.js (upravené pro GH Pages pod /e22/)
+const CACHE_NAME = 'e22-static-v1';
+const RUNTIME_CACHE = 'e22-runtime-v1';
 
-// Soubory k cache při instalaci
+// Použij absolutní cesty tak, aby odpovídaly GH Pages: /e22/...
 const urlsToCache = [
-  './',
-  './index.html',
-  './style.css',
-  './scripts/app.js',
-  './manifest.json',
-  './favicon.svg',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
+  '/e22/',
+  '/e22/index.html',
+  '/e22/style.css',
+  '/e22/scripts/app.js',
+  '/e22/manifest.json',
+  '/e22/favicon.svg',
+  '/e22/icons/icon-192.png',
+  '/e22/icons/icon-512.png',
+  // externí fonty - budeme je fetchovat bezpečně (no-cors fallback)
   'https://fonts.gstatic.com/s/inter/v20/UcCo3FwrK3iLTfvgaQc78lA2.woff2',
   'https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRsgW7S9XdZN8.woff2'
 ];
 
-// Install event - cache static assets
+// Pomocná funkce na bezpečné cacheování (nezhatí instalaci, pokud něco selže)
+async function safeCacheResources(cache, resources) {
+  const promises = resources.map(async (resource) => {
+    try {
+      // externí zdroje (http/https) můžou vyžadovat no-cors; fetch je ovšem nutné ošetřit
+      if (/^https?:\/\//i.test(resource) && !resource.startsWith(self.location.origin)) {
+        const resp = await fetch(resource, { mode: 'no-cors' }).catch(() => null);
+        if (resp && resp.ok) {
+          try { await cache.put(resource, resp.clone()); } catch (e) { /* ignore */ }
+        } else {
+          // fallback: ignoruj (nepřeruší instalaci)
+        }
+      } else {
+        // same-origin - bez problémů
+        await cache.add(resource);
+      }
+    } catch (err) {
+      // loguj, ale nenech zkazit instalaci
+      console.warn('[SW] safeCacheResources failed for', resource, err);
+    }
+  });
+  await Promise.all(promises);
+}
+
 self.addEventListener('install', (event) => {
   console.log('[Service Worker] Installing...');
-  
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[Service Worker] Caching static assets');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => {
-        console.log('[Service Worker] Installed successfully');
-        return self.skipWaiting();
-      })
-      .catch((error) => {
-        console.error('[Service Worker] Installation failed:', error);
-      })
+    caches.open(CACHE_NAME).then(async (cache) => {
+      console.log('[Service Worker] Caching static assets (safe mode)');
+      await safeCacheResources(cache, urlsToCache);
+    })
+    .then(() => self.skipWaiting())
+    .catch((err) => console.error('[Service Worker] Install failed', err))
   );
 });
 
-// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   console.log('[Service Worker] Activating...');
-  
   event.waitUntil(
-    caches.keys()
-      .then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE) {
-              console.log('[Service Worker] Deleting old cache:', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
-        );
+    caches.keys().then(keys => Promise.all(
+      keys.map(key => {
+        if (key !== CACHE_NAME && key !== RUNTIME_CACHE) {
+          console.log('[Service Worker] Deleting old cache:', key);
+          return caches.delete(key);
+        }
       })
-      .then(() => {
-        console.log('[Service Worker] Activated successfully');
-        return self.clients.claim();
-      })
+    )).then(() => self.clients.claim())
   );
 });
 
-// Fetch event - serve from cache, fallback to network
+// FETCH: mix cache-first pro statické assety a network-first pro API/navigace
 self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
+  const req = event.request;
+  const url = new URL(req.url);
 
-  // Skip cross-origin requests
-  if (url.origin !== location.origin) {
+  // ignoruj chrome-extension: nebo jiné ne-webové požadavky
+  if (url.protocol.startsWith('chrome-extension')) return;
+
+  // cross-origin fonts/images handled via cache on install; ale fetchable here too
+  // pokud request není GET -> ignoruj
+  if (req.method !== 'GET') return;
+
+  // Network-first pro API požadavky (pokud máš /api/ endpointy)
+  if (req.url.includes('/api/')) {
+    event.respondWith(networkFirst(req));
     return;
   }
 
-  // Network first for API calls
-  if (request.url.includes('/api/')) {
-    event.respondWith(networkFirst(request));
+  // Navigace: preferuj network (aby se načítal aktuální content), fallback na index
+  if (req.mode === 'navigate') {
+    event.respondWith(
+      fetch(req).then(response => {
+        // update runtime cache
+        const copy = response.clone();
+        caches.open(RUNTIME_CACHE).then(cache => cache.put(req, copy));
+        return response;
+      }).catch(async () => {
+        const cache = await caches.open(CACHE_NAME);
+        // fallback na cached index.html (pro SPA/navigaci)
+        const cachedIndex = await cache.match('/e22/index.html') || await cache.match('/e22/');
+        return cachedIndex || new Response('Offline', { status: 503, statusText: 'Offline' });
+      })
+    );
     return;
   }
 
-  // Cache first for static assets
-  event.respondWith(cacheFirst(request));
+  // statické assety: cache-first
+  event.respondWith(cacheFirst(req));
 });
 
-// Cache first strategy
 async function cacheFirst(request) {
   const cache = await caches.open(CACHE_NAME);
   const cached = await cache.match(request);
-  
   if (cached) {
-    console.log('[Service Worker] Serving from cache:', request.url);
+    // console.log('[Service Worker] From cache:', request.url);
     return cached;
   }
-  
   try {
     const response = await fetch(request);
-    
-    // Cache the new response
-    if (response.status === 200) {
+    if (response && response.status === 200) {
       const responseClone = response.clone();
-      const runtimeCache = await caches.open(RUNTIME_CACHE);
-      await runtimeCache.put(request, responseClone);
+      const runtime = await caches.open(RUNTIME_CACHE);
+      try { await runtime.put(request, responseClone); } catch (e) { /* ignore */ }
     }
-    
     return response;
-  } catch (error) {
-    console.error('[Service Worker] Fetch failed:', error);
-    
-    // Return offline page if available
-    const offlinePage = await cache.match('./offline.html');
-    if (offlinePage) {
-      return offlinePage;
-    }
-    
-    return new Response('Offline - stránka není dostupná', {
-      status: 503,
-      statusText: 'Service Unavailable',
-      headers: new Headers({
-        'Content-Type': 'text/plain'
-      })
-    });
+  } catch (err) {
+    // pokud se nedaří, zkus offline.html
+    const offline = await cache.match('/e22/offline.html') || cache.match('/e22/index.html');
+    return offline || new Response('Offline - stránka není dostupná', { status: 503, headers: { 'Content-Type': 'text/plain' }});
   }
 }
 
-// Network first strategy
 async function networkFirst(request) {
   try {
     const response = await fetch(request);
-    
-    // Cache successful responses
-    if (response.status === 200) {
-      const responseClone = response.clone();
-      const runtimeCache = await caches.open(RUNTIME_CACHE);
-      await runtimeCache.put(request, responseClone);
+    if (response && response.status === 200) {
+      const copy = response.clone();
+      const runtime = await caches.open(RUNTIME_CACHE);
+      try { await runtime.put(request, copy); } catch (e) { /* ignore */ }
     }
-    
     return response;
-  } catch (error) {
-    console.error('[Service Worker] Network request failed:', error);
-    
-    // Try to serve from cache
+  } catch (err) {
     const cached = await caches.match(request);
-    if (cached) {
-      return cached;
-    }
-    
-    throw error;
+    if (cached) return cached;
+    throw err;
   }
 }
 
-// Handle messages from clients
+// Messaging: skip waiting / clear caches
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+  if (!event.data) return;
+  if (event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-  
-  if (event.data && event.data.type === 'CLEAR_CACHE') {
+  if (event.data.type === 'CLEAR_CACHE') {
     event.waitUntil(
-      caches.keys().then((cacheNames) => {
-        return Promise.all(
-          cacheNames.map((cacheName) => caches.delete(cacheName))
-        );
-      })
+      caches.keys().then(names => Promise.all(names.map(n => caches.delete(n))))
     );
   }
 });
 
-// Background sync
+// Optional: sync/push placeholders (pokud je nepoužíváš, lze je odstranit)
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-messages') {
-    event.waitUntil(syncMessages());
+    event.waitUntil((async () => {
+      console.log('[SW] Sync event fired: sync-messages');
+      // sem implementuj sync queue flush
+    })());
   }
 });
 
-async function syncMessages() {
-  // Sync queued messages when online
-  console.log('[Service Worker] Syncing messages...');
-  // Implementation here
-}
-
-// Push notifications
 self.addEventListener('push', (event) => {
-  const data = event.data.json();
-  
-  const options = {
-    body: data.body,
-    icon: './icons/icon-192.png',
-    badge: './icons/icon-192.png',
-    vibrate: [200, 100, 200],
-    data: {
-      url: data.url
-    }
-  };
-  
-  event.waitUntil(
-    self.registration.showNotification(data.title, options)
-  );
+  try {
+    const data = event.data ? event.data.json() : { title: 'Notifikace', body: 'Máte novou zprávu', url: '/e22/' };
+    const options = {
+      body: data.body,
+      icon: '/e22/icons/icon-192.png',
+      badge: '/e22/icons/icon-192.png',
+      data: { url: data.url || '/e22/' }
+    };
+    event.waitUntil(self.registration.showNotification(data.title, options));
+  } catch (e) {
+    console.warn('[SW] push handler error', e);
+  }
 });
 
-// Notification click
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  
-  event.waitUntil(
-    clients.openWindow(event.notification.data.url)
-  );
+  const url = (event.notification.data && event.notification.data.url) || '/e22/';
+  event.waitUntil(clients.openWindow(url));
 });
 
-console.log('[Service Worker] Loaded');
+console.log('[Service Worker] Loaded (e22)');
