@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
 
 <head>
-  <title>Home</title>
+  <title>Jakub Růžička - Portfolio | Graphic Designer & Frontend Developer</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="robots" content="index,follow" />
+  <meta name="description" content="Portfolio grafického designéra a frontend vývojáře. Specializuji se na UI/UX design, webdesign, branding a tvorbu moderních webových aplikací.">
+  <meta name="author" content="Jakub Růžička">
+  <meta name="keywords" content="graphic design, webdesign, UI/UX, frontend developer, branding, portfolio">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Jakub Růžička - Portfolio">
+  <meta property="og:description" content="Graphic Designer & Frontend Developer">
+  <meta property="og:type" content="website">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#667eea">
+  
+  <!-- Fonts -->
   <style data-project-fonts="true">
     @font-face {
       font-family: Inter;
       src: url("https://fonts.gstatic.com/s/inter/v20/UcCo3FwrK3iLTfvgaQc78lA2.woff2");
       font-weight: 100 900;
+      font-display: swap;
     }
 
     @font-face {
@@ -18,35 +36,23 @@
       src: url("https://fonts.gstatic.com/s/inter/v20/UcCm3FwrK3iLTcvnYwYZ90A2B58.woff2");
       font-style: italic;
       font-weight: 100 900;
+      font-display: swap;
     }
 
     @font-face {
       font-family: Manrope;
       src: url("https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRsgW7S9XdZN8.woff2");
       font-weight: 200 800;
-    }
-
-    /* GSAP Enhancements */
-    .gsap-word {
-      display: inline-block;
-      margin-right: 0.3em;
-    }
-
-    .gjs-plg-flex-column {
-      transform-style: preserve-3d;
-      backface-visibility: hidden;
-    }
-
-    #iq615l.gsap-scrolled {
-      background: rgba(255, 255, 255, 0.95) !important;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      font-display: swap;
     }
   </style>
+  
+  <!-- Styles -->
   <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body id="ihtf">
+  <!-- Navbar -->
   <div id="iq615l" class="navbar">
     <div data-gjs="navbar" id="iior1j" class="navbar-cnt">
       <a href="/" id="i5oaqd" class="navbar-brand">
@@ -64,17 +70,21 @@
       </div>
       <div data-gjs="navbar-items" id="ieo412" class="navbar-items-c">
         <nav id="ir89yc" class="navbar-menu-nav">
-          <a id="ilmusq">Home</a><a id="ikdp7">About</a><a id="i1r5z">Contact</a>
+          <a href="#iyp5" id="ilmusq">Home</a>
+          <a href="#iawlf" id="ikdp7">About</a>
+          <a href="#i4bac" id="i1r5z">Contact</a>
         </nav>
       </div>
     </div>
   </div>
+
+  <!-- Hero Section -->
   <section id="iyp5" class="gjs-section">
     <div id="iyox" class="gjs-container">
       <div data-type-role="flex-row" id="ivof" class="gjs-plg-flex-row">
         <div data-type-role="flex-column" id="ie5f" class="gjs-plg-flex-column">
           <h1 id="i4tkr">RUZICKA<br data-gs-ib="" />JAKUB</h1>
-          <a id="ifjoh" class="gjs-link-box">
+          <a id="ifjoh" class="gjs-link-box" href="mailto:mail@ruzickajakub.cz" aria-label="Email kontakt">
             <div id="ian75">mail@ruzickajakub.cz</div>
             <div data-type-icon id="ih6oh" class="gjs-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
@@ -86,14 +96,15 @@
           </a>
         </div>
         <div data-type-role="flex-column" id="iqvw" class="gjs-plg-flex-column">
-          <img id="iv2wn" src="./assets/me_wp.webp" /><span id="im13y">Designer a Frontend Developer specializující se
-            na tvorbu UI/UX
-            intuitivních digitálních řešení. Zaměřuji se na komplexní proces
-            designu od wireframů po finální implementaci.</span>
+          <img id="iv2wn" src="./assets/me_wp.webp" alt="Jakub Růžička - Portrait" loading="lazy" />
+          <span id="im13y">Designer a Frontend Developer specializující se na tvorbu UI/UX intuitivních digitálních
+            řešení. Zaměřuji se na komplexní proces designu od wireframů po finální implementaci.</span>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Work Section -->
   <section id="ijxck" class="gjs-section">
     <div class="gjs-container">
       <div data-type-role="flex-row" id="iz9gv" class="gjs-plg-flex-row">
@@ -101,44 +112,49 @@
           <h1 id="i1bcf">Work</h1>
         </div>
       </div>
+      
+      <!-- First Row -->
       <div data-type-role="flex-row" id="ij5ox" class="gjs-plg-flex-row">
         <div data-type-role="flex-column" id="ie33q" class="gjs-plg-flex-column">
           <h1 id="itt22">Dreamscapes</h1>
           <img id="iqc0c"
             src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/7a44ceaa-1a4c-4e44-8734-0bf4d4452437__a-photograph-of-a-monolithic-stone-struc7bjogt7lrj2r4uzvs2ijrwlg0oydnbspgszjtqmlil1w.jpeg"
-            class="gjs-t-border" />
+            class="gjs-t-border" alt="Dreamscapes Project" loading="lazy" />
         </div>
         <div data-type-role="flex-column" id="i5kiv" class="gjs-plg-flex-column">
           <h1 id="ib9zk">Pulse Motion</h1>
           <img id="iqc0c-4"
             src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/ffbb67d1-a9c4-4c91-9536-290f30039ff2__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90035.jpeg"
-            class="gjs-t-border" />
+            class="gjs-t-border" alt="Pulse Motion Project" loading="lazy" />
         </div>
       </div>
+      
+      <!-- Second Row -->
       <div data-type-role="flex-row" id="i49hb" class="gjs-plg-flex-row">
         <div data-type-role="flex-column" id="ieufj" class="gjs-plg-flex-column">
           <h1 id="ivdo7">Flow Studio</h1>
           <img id="iqc0c-5"
             src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/0334590a-6d93-484a-9c17-9d650834a7e5__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90033.jpeg"
-            class="gjs-t-border" />
+            class="gjs-t-border" alt="Flow Studio Project" loading="lazy" />
         </div>
         <div data-type-role="flex-column" id="iuqai" class="gjs-plg-flex-column">
           <h1 id="ihsfk">GreenMark</h1>
           <img id="iqc0c-4-2"
             src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/ffbb67d1-a9c4-4c91-9536-290f30039ff2__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90035.jpeg"
-            class="gjs-t-border" />
+            class="gjs-t-border" alt="GreenMark Project" loading="lazy" />
         </div>
       </div>
     </div>
   </section>
+
+  <!-- About Section -->
   <section id="iawlf" class="gjs-section">
     <div class="gjs-container">
       <div data-type-role="flex-row" id="ibdtm" class="gjs-plg-flex-row">
         <div data-type-role="flex-column" id="ioq1g" class="gjs-plg-flex-column">
           <h1 id="i8uif">About.</h1>
-          <span id="i2sah">Specializuji se na komplexní UI/UX design s důrazem na
-            uživatelskou přívětivost a přístupnost. Využívám nejmodernější
-            technologie a postupy pro vytváření responzivních webových
+          <span id="i2sah">Specializuji se na komplexní UI/UX design s důrazem na uživatelskou přívětivost a
+            přístupnost. Využívám nejmodernější technologie a postupy pro vytváření responzivních webových
             aplikací.</span>
         </div>
         <div data-type-role="flex-column" id="idb68" class="gjs-plg-flex-column"></div>
@@ -147,30 +163,29 @@
         <div data-type-role="flex-column" id="igtgc" class="gjs-plg-flex-column">
           <img id="i4q0l"
             src="https://cdn.grapesjs.com/workspaces/cmc4xkttt0df99wj7woejj4g8/assets/00325cd9-d201-4dfc-8ce9-03fd73914f5d__lena-2.webp"
-            class="gjs-t-border" />
+            class="gjs-t-border" alt="About Image" loading="lazy" />
         </div>
         <div data-type-role="flex-column" id="imgw5" class="gjs-plg-flex-column">
-          <span id="ijnrc">Specializuji se na komplexní návrh uživatelského rozhraní (UI) a
-            uživatelského zážitku (UX) s důrazem na detail, přístupnost a
-            intuitivní interakci. Mými cíly není jen vytvořit vizuálně
-            atraktivní design, ale především systém, který uživatelům umožní
-            snadno a přirozeně dosáhnout jejich cílů.</span>
+          <span id="ijnrc">Specializuji se na komplexní návrh uživatelského rozhraní (UI) a uživatelského zážitku (UX) s
+            důrazem na detail, přístupnost a intuitivní interakci. Mými cíly není jen vytvořit vizuálně atraktivní
+            design, ale především systém, který uživatelům umožní snadno a přirozeně dosáhnout jejich cílů.</span>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Footer / Contact Section -->
   <section id="i4bac" class="gjs-section">
     <div id="ivs9j" class="gjs-container">
       <div id="i2fjb">Linkedin Twitter Behance</div>
       <h1 id="iuuay">
-        Proces práce stavím na analýze, testování a neustálém zlepšování.
-        Každý detail – od mikrointerakcí po strukturu informací – navrhuji s
-        ohledem na jasnost, rychlost a použitelnost. Výsledkem je digitální
-        produkt, který působí přirozeně, přehledně a profesionálně.
+        Proces práce stavím na analýze, testování a neustálém zlepšování. Každý detail – od mikrointerakcí po
+        strukturu informací – navrhuji s ohledem na jasnost, rychlost a použitelnost. Výsledkem je digitální produkt,
+        který působí přirozeně, přehledně a profesionálně.
       </h1>
       <div data-type-role="flex-row" id="ityzk" class="gjs-plg-flex-row">
         <div data-type-role="flex-column" id="ik5ea" class="gjs-plg-flex-column">
-          <a id="iyeh2" href="#" class="gjs-t-link gjs-t-border">Start a Project</a>
+          <a id="iyeh2" href="#i4bac" class="gjs-t-link gjs-t-border">Start a Project</a>
           <div data-type-role="flex-row" id="iaao4" class="gjs-plg-flex-row">
             <div data-type-role="flex-column" id="ifeve" class="gjs-plg-flex-column">
               <div data-type-icon id="izf5a" class="gjs-icon">
@@ -186,18 +201,20 @@
       </div>
       <div data-type-role="flex-row" id="iyavz" class="gjs-plg-flex-row">
         <div data-type-role="flex-column" id="i5g8k" class="gjs-plg-flex-column">
-          <h1 id="i1xwm">hello@Lena.com</h1>
+          <h1 id="i1xwm">mail@ruzickajakub.cz</h1>
         </div>
         <div data-type-role="flex-column" id="imwy1" class="gjs-plg-flex-column">
           <h1 id="i57k0v">Designed &amp; Developed</h1>
           <h1 id="i3lce">All rights reserved</h1>
         </div>
         <div data-type-role="flex-column" id="ix16d" class="gjs-plg-flex-column">
-          <h1 id="im1i8g">GRAP ©2025</h1>
+          <h1 id="im1i8g">RJ ©2025</h1>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Mobile Menu Toggle Script -->
   <script>
     var items = document.querySelectorAll("#iolu3z");
     for (var i = 0, len = items.length; i < len; i++) {
@@ -274,15 +291,35 @@
   </script>
 
   <!-- GSAP Core & Plugins -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" 
+          integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" 
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" 
+          integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" 
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js" 
+          integrity="sha512-H7jDznTr6RYX32mqJJcWH0C2LlKdASMYdg6W1biLN5I1WRtyXJuYGWbDZML5LqPDMDZrJRbqP+x6VKO08tU6Cg==" 
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer"></script>
 
   <!-- GSAP Animations -->
   <script src="./scripts/gsap-animations.js"></script>
 
-  <!-- Original App.js (volitelné) -->
+  <!-- Original App.js (Optional) -->
   <script src="./scripts/app.js"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(registration => console.log('✅ Service Worker registered'))
+          .catch(error => console.log('❌ Service Worker registration failed:', error));
+      });
+    }
+  </script>
 </body>
 
 </html>
