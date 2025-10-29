@@ -2,6 +2,7 @@
  * GSAP Advanced Animations for Portfolio
  * @author Jakub Růžička
  * @version 1.0.0
+ * FIXED VERSION - Production Ready
  */
 
 class GSAPAnimations {
@@ -15,7 +16,7 @@ class GSAPAnimations {
     init() {
         // Kontrola, zda je GSAP načteno
         if (typeof gsap === 'undefined') {
-            console.error('GSAP library not loaded!');
+            console.error('❌ GSAP library not loaded!');
             return;
         }
 
@@ -66,7 +67,6 @@ class GSAPAnimations {
     // 1. PROGRESS BAR
     // ============================================
     createProgressBar() {
-        // Vytvoření progress bar elementu
         const progressBar = document.createElement('div');
         progressBar.className = 'gsap-progress-bar';
         progressBar.style.cssText = `
@@ -79,10 +79,10 @@ class GSAPAnimations {
             transform-origin: left;
             transform: scaleX(0);
             z-index: 10000;
+            pointer-events: none;
         `;
         document.body.appendChild(progressBar);
 
-        // Animace progress baru
         gsap.to('.gsap-progress-bar', {
             scaleX: 1,
             ease: "none",
@@ -101,7 +101,6 @@ class GSAPAnimations {
         const navbar = document.querySelector('#iq615l');
         if (!navbar) return;
 
-        // Navbar show/hide na scroll
         ScrollTrigger.create({
             start: "top -100",
             end: 99999,
@@ -111,7 +110,6 @@ class GSAPAnimations {
             }
         });
 
-        // Navbar items stagger
         const navItems = document.querySelectorAll('.navbar-menu-nav a');
         if (navItems.length) {
             gsap.from(navItems, {
@@ -125,7 +123,7 @@ class GSAPAnimations {
     }
 
     // ============================================
-    // 3. HERO ANIMATION - Komplexní Timeline
+    // 3. HERO ANIMATION
     // ============================================
     heroAnimation() {
         const tl = gsap.timeline({
@@ -136,54 +134,64 @@ class GSAPAnimations {
 
         this.timelines.hero = tl;
 
-        // Main title animation
-        tl.from("#i4tkr", {
-            y: 100,
-            opacity: 0,
-            scale: 0.9,
-            duration: 1.2,
-            ease: "back.out(1.7)"
-        })
-        // Image animation
-        .from("#iv2wn", {
-            scale: 0,
-            rotation: -180,
-            opacity: 0,
-            duration: 1,
-            ease: "elastic.out(1, 0.5)"
-        }, "-=0.6")
-        // Description text
-        .from("#im13y", {
-            y: 50,
-            opacity: 0,
-            duration: 1
-        }, "-=0.4")
-        // Email link
-        .from("#ifjoh", {
-            x: -50,
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.8
-        }, "-=0.3")
-        // Copy icon
-        .from("#ih6oh", {
-            scale: 0,
-            rotation: 360,
-            duration: 0.5
-        }, "-=0.2");
+        // Check if elements exist
+        if (document.querySelector("#i4tkr")) {
+            tl.from("#i4tkr", {
+                y: 100,
+                opacity: 0,
+                scale: 0.9,
+                duration: 1.2,
+                ease: "back.out(1.7)"
+            });
+        }
 
-        // Floating animation pro obrázek
-        gsap.to("#iv2wn", {
-            y: -20,
-            duration: 2,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
+        if (document.querySelector("#iv2wn")) {
+            tl.from("#iv2wn", {
+                scale: 0,
+                rotation: -180,
+                opacity: 0,
+                duration: 1,
+                ease: "elastic.out(1, 0.5)"
+            }, "-=0.6");
+
+            // Floating animation
+            gsap.to("#iv2wn", {
+                y: -20,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        }
+
+        if (document.querySelector("#im13y")) {
+            tl.from("#im13y", {
+                y: 50,
+                opacity: 0,
+                duration: 1
+            }, "-=0.4");
+        }
+
+        if (document.querySelector("#ifjoh")) {
+            tl.from("#ifjoh", {
+                x: -50,
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.8
+            }, "-=0.3");
+        }
+
+        if (document.querySelector("#ih6oh")) {
+            tl.from("#ih6oh", {
+                scale: 0,
+                rotation: 360,
+                duration: 0.5
+            }, "-=0.2");
+        }
     }
 
     // ============================================
-    // 4. WORK CARDS - 3D Stagger Animation
+    // 4. WORK CARDS
     // ============================================
     workCardsAnimation() {
         const cards = [
@@ -193,22 +201,23 @@ class GSAPAnimations {
             { id: "#iuqai", title: "#ihsfk", img: "#iqc0c-4-2" }
         ];
 
-        // Section title animation
-        gsap.from("#i1bcf", {
-            scrollTrigger: {
-                trigger: "#ijxck",
-                start: "top 80%",
-            },
-            x: -100,
-            opacity: 0,
-            duration: 1
-        });
+        // Section title
+        if (document.querySelector("#i1bcf")) {
+            gsap.from("#i1bcf", {
+                scrollTrigger: {
+                    trigger: "#ijxck",
+                    start: "top 80%",
+                },
+                x: -100,
+                opacity: 0,
+                duration: 1
+            });
+        }
 
         cards.forEach((card, index) => {
             const element = document.querySelector(card.id);
             if (!element) return;
 
-            // Entry animation
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: card.id,
@@ -226,22 +235,28 @@ class GSAPAnimations {
                 transformPerspective: 1000,
                 duration: 1,
                 ease: "power3.out"
-            })
-            // Image zoom in
-            .from(card.img, {
-                scale: 1.3,
-                duration: 1.5,
-                ease: "power2.out"
-            }, "-=1")
-            // Title slide
-            .from(card.title, {
-                x: -50,
-                opacity: 0,
-                duration: 0.8
-            }, "-=0.8");
+            });
 
-            // Hover animation - 3D tilt
-            element.addEventListener("mouseenter", (e) => {
+            // Image zoom
+            if (document.querySelector(card.img)) {
+                tl.from(card.img, {
+                    scale: 1.3,
+                    duration: 1.5,
+                    ease: "power2.out"
+                }, "-=1");
+            }
+
+            // Title slide
+            if (document.querySelector(card.title)) {
+                tl.from(card.title, {
+                    x: -50,
+                    opacity: 0,
+                    duration: 0.8
+                }, "-=0.8");
+            }
+
+            // 3D Hover effect
+            element.addEventListener("mouseenter", () => {
                 gsap.to(element, {
                     scale: 1.05,
                     rotationY: 5,
@@ -279,41 +294,42 @@ class GSAPAnimations {
                 });
             });
 
-            // Image parallax on scroll
-            gsap.to(card.img, {
-                scrollTrigger: {
-                    trigger: card.id,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1
-                },
-                y: -30,
-                ease: "none"
-            });
+            // Image parallax
+            if (document.querySelector(card.img)) {
+                gsap.to(card.img, {
+                    scrollTrigger: {
+                        trigger: card.id,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1
+                    },
+                    y: -30,
+                    ease: "none"
+                });
+            }
         });
     }
 
     // ============================================
-    // 5. ABOUT SECTION - Split Text Reveal
+    // 5. ABOUT SECTION
     // ============================================
     aboutSectionAnimation() {
-        // Title animation
-        gsap.from("#i8uif", {
-            scrollTrigger: {
-                trigger: "#iawlf",
-                start: "top 80%"
-            },
-            x: -100,
-            opacity: 0,
-            duration: 1
-        });
-
-        // Main description
-        const aboutText = document.querySelector("#i2sah");
-        if (aboutText) {
-            gsap.from(aboutText, {
+        if (document.querySelector("#i8uif")) {
+            gsap.from("#i8uif", {
                 scrollTrigger: {
-                    trigger: aboutText,
+                    trigger: "#iawlf",
+                    start: "top 80%"
+                },
+                x: -100,
+                opacity: 0,
+                duration: 1
+            });
+        }
+
+        if (document.querySelector("#i2sah")) {
+            gsap.from("#i2sah", {
+                scrollTrigger: {
+                    trigger: "#i2sah",
                     start: "top 80%"
                 },
                 y: 50,
@@ -322,20 +338,21 @@ class GSAPAnimations {
             });
         }
 
-        // Image animation
-        gsap.from("#i4q0l", {
-            scrollTrigger: {
-                trigger: "#i4q0l",
-                start: "top 80%"
-            },
-            scale: 0.8,
-            opacity: 0,
-            rotation: -5,
-            duration: 1.2,
-            ease: "back.out(1.7)"
-        });
+        if (document.querySelector("#i4q0l")) {
+            gsap.from("#i4q0l", {
+                scrollTrigger: {
+                    trigger: "#i4q0l",
+                    start: "top 80%"
+                },
+                scale: 0.8,
+                opacity: 0,
+                rotation: -5,
+                duration: 1.2,
+                ease: "back.out(1.7)"
+            });
+        }
 
-        // Long description with word reveal
+        // Word reveal animation
         const longText = document.querySelector("#ijnrc");
         if (longText) {
             const words = longText.textContent.split(" ");
@@ -359,13 +376,12 @@ class GSAPAnimations {
     }
 
     // ============================================
-    // 6. TEXT REVEAL - Gradient Text Animation
+    // 6. TEXT REVEAL
     // ============================================
     textRevealAnimation() {
         const gradientText = document.querySelector("#iuuay");
         if (!gradientText) return;
 
-        // Animated gradient background
         gsap.to(gradientText, {
             scrollTrigger: {
                 trigger: gradientText,
@@ -377,7 +393,6 @@ class GSAPAnimations {
             ease: "none"
         });
 
-        // Scale on scroll
         gsap.from(gradientText, {
             scrollTrigger: {
                 trigger: gradientText,
@@ -394,7 +409,6 @@ class GSAPAnimations {
     // 7. PARALLAX EFFECTS
     // ============================================
     parallaxEffects() {
-        // Všechny obrázky - mírný parallax
         const images = document.querySelectorAll("img");
         images.forEach(img => {
             gsap.to(img, {
@@ -408,30 +422,13 @@ class GSAPAnimations {
                 ease: "none"
             });
         });
-
-        // Секce s jiným parallax speedem
-        const sections = document.querySelectorAll(".gjs-section");
-        sections.forEach((section, index) => {
-            const speed = (index % 2 === 0) ? 50 : -50;
-            
-            gsap.to(section, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                },
-                y: speed,
-                ease: "none"
-            });
-        });
     }
 
     // ============================================
     // 8. MAGNETIC BUTTONS
     // ============================================
     magneticButtons() {
-        const buttons = document.querySelectorAll("#iyeh2, .gjs-t-link, .navbar-menu-nav a");
+        const buttons = document.querySelectorAll("#iyeh2, .navbar-menu-nav a");
 
         buttons.forEach(button => {
             button.style.position = 'relative';
@@ -476,16 +473,6 @@ class GSAPAnimations {
         const footer = document.querySelector("#i4bac");
         if (!footer) return;
 
-        // Pin footer
-        ScrollTrigger.create({
-            trigger: footer,
-            start: "top top",
-            end: "+=300",
-            pin: false,
-            anticipatePin: 1
-        });
-
-        // Footer elements animation
         const footerTl = gsap.timeline({
             scrollTrigger: {
                 trigger: footer,
@@ -493,77 +480,75 @@ class GSAPAnimations {
             }
         });
 
-        footerTl
-            .from("#i2fjb", {
-                y: -30,
-                opacity: 0
-            })
-            .from("#iuuay", {
-                scale: 0.9,
-                opacity: 0
-            }, "-=0.3")
-            .from("#iyeh2", {
-                scale: 0,
-                rotation: 180,
-                ease: "back.out(1.7)"
-            }, "-=0.2")
-            .from("#iaao4", {
-                x: -50,
-                opacity: 0
-            }, "-=0.2")
-            .from(["#i1xwm", "#i57k0v", "#i3lce", "#im1i8g"], {
-                y: 30,
-                opacity: 0,
-                stagger: 0.1
-            }, "-=0.3");
+        const elements = [
+            "#i2fjb",
+            "#iuuay", 
+            "#iyeh2",
+            "#iaao4",
+            "#i1xwm",
+            "#i57k0v",
+            "#i3lce",
+            "#im1i8g"
+        ];
 
-        // Pulsing dot animation
-        gsap.to("#izf5a", {
-            scale: 1.2,
-            opacity: 0.5,
-            duration: 1,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
+        elements.forEach((selector, index) => {
+            if (document.querySelector(selector)) {
+                footerTl.from(selector, {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.6
+                }, index * 0.1);
+            }
         });
+
+        // Pulsing dot
+        if (document.querySelector("#izf5a")) {
+            gsap.to("#izf5a", {
+                scale: 1.2,
+                opacity: 0.5,
+                duration: 1,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        }
     }
 
     // ============================================
     // 10. MISC ANIMATIONS
     // ============================================
     miscAnimations() {
-        // Smooth scroll reveal pro všechny flex columns
         ScrollTrigger.batch(".gjs-plg-flex-column", {
             onEnter: batch => gsap.from(batch, {
                 opacity: 0,
                 y: 50,
                 stagger: 0.15,
                 duration: 1,
-                ease: "power2.out"
+                ease: "power2.out",
+                overwrite: 'auto'
             }),
             start: "top 90%",
             once: true
         });
 
-        // Logo pulse on load
-        gsap.from("#iixa7u", {
-            scale: 0,
-            rotation: 360,
-            duration: 1,
-            ease: "elastic.out(1, 0.5)"
-        });
+        if (document.querySelector("#iixa7u")) {
+            gsap.from("#iixa7u", {
+                scale: 0,
+                rotation: 360,
+                duration: 1,
+                ease: "elastic.out(1, 0.5)"
+            });
+        }
     }
 
     // ============================================
     // EVENT LISTENERS
     // ============================================
     setupEventListeners() {
-        // Refresh ScrollTrigger po načtení všech obrázků
         window.addEventListener("load", () => {
             ScrollTrigger.refresh();
         });
 
-        // Debounced resize handler
         let resizeTimer;
         window.addEventListener("resize", () => {
             clearTimeout(resizeTimer);
@@ -572,7 +557,6 @@ class GSAPAnimations {
             }, 250);
         });
 
-        // Page visibility - pause animace když tab není aktivní
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
                 gsap.globalTimeline.pause();
@@ -586,19 +570,16 @@ class GSAPAnimations {
     // PUBLIC METHODS
     // ============================================
     
-    // Pause všech animací
     pauseAll() {
         gsap.globalTimeline.pause();
         console.log('⏸ All animations paused');
     }
 
-    // Resume všech animací
     resumeAll() {
         gsap.globalTimeline.resume();
         console.log('▶️ All animations resumed');
     }
 
-    // Kill všech animací
     destroy() {
         ScrollTrigger.getAll().forEach(st => st.kill());
         gsap.killTweensOf("*");
@@ -606,13 +587,11 @@ class GSAPAnimations {
         console.log('💀 All animations destroyed');
     }
 
-    // Refresh ScrollTrigger
     refresh() {
         ScrollTrigger.refresh();
         console.log('🔄 ScrollTrigger refreshed');
     }
 
-    // Get timeline by name
     getTimeline(name) {
         return this.timelines[name];
     }
@@ -622,15 +601,11 @@ class GSAPAnimations {
 // INITIALIZATION
 // ============================================
 
-// Globální instance
 let gsapAnimations;
 
-// Inicializace po načtení GSAP
 const initGSAP = () => {
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsapAnimations = new GSAPAnimations();
-        
-        // Expose to window for debugging
         window.gsapAnimations = gsapAnimations;
     } else {
         console.warn('⚠️ GSAP not loaded yet, retrying...');
@@ -638,14 +613,12 @@ const initGSAP = () => {
     }
 };
 
-// Start initialization
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initGSAP);
 } else {
     initGSAP();
 }
 
-// Export pro případné použití jako modul
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = GSAPAnimations;
 }
