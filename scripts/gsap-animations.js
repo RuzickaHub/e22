@@ -230,17 +230,10 @@ class GSAPAnimations {
     }
 
     // ============================================
-    // 4. WORK CARDS - FIXED
+    // 4. WORK CARDS - SIMPLIFIED & UNIQUE
     // ============================================
     workCardsAnimation() {
         try {
-            const cards = [
-                { id: "#ie33q", title: "#itt22", img: "#iqc0c" },
-                { id: "#i5kiv", title: "#ib9zk", img: "#iqc0c-4" },
-                { id: "#ieufj", title: "#ivdo7", img: "#iqc0c-5" },
-                { id: "#iuqai", title: "#ihsfk", img: "#iqc0c-4-2" }
-            ];
-
             // Section title
             const sectionTitle = document.querySelector("#i1bcf");
             if (sectionTitle) {
@@ -255,93 +248,133 @@ class GSAPAnimations {
                 });
             }
 
-            cards.forEach((card) => {
-                const element = document.querySelector(card.id);
-                if (!element) return;
-
-                const tl = gsap.timeline({
+            // Card 1 - Dreamscapes - Z LEVA
+            const card1 = document.querySelector("#ie33q");
+            if (card1) {
+                gsap.from(card1, {
                     scrollTrigger: {
-                        trigger: card.id,
+                        trigger: card1,
                         start: "top 85%",
-                        end: "top 30%",
-                        toggleActions: "play none none reverse",
-                    }
-                });
-
-                // Card reveal
-                tl.from(element, {
-                    y: 100,
+                    },
+                    x: -200,
                     opacity: 0,
-                    rotationX: -15,
-                    transformPerspective: 1000,
-                    duration: 1,
-                    ease: "power3.out",
-                    clearProps: "transform" // Clear po animaci
+                    duration: 1.2,
+                    ease: "power3.out"
                 });
 
-                // Image
-                const imgElement = document.querySelector(card.img);
-                if (imgElement) {
-                    tl.from(imgElement, {
-                        scale: 1.3,
-                        duration: 1.5,
-                        ease: "power2.out",
-                        clearProps: "transform"
-                    }, "-=1");
-                }
-
-                // Title
-                const titleElement = document.querySelector(card.title);
-                if (titleElement) {
-                    tl.from(titleElement, {
-                        x: -50,
-                        opacity: 0,
-                        duration: 0.8,
-                        clearProps: "all"
-                    }, "-=0.8");
-                }
-
-                // 3D Hover - zjednodušený
-                let isHovering = false;
-
-                element.addEventListener("mouseenter", () => {
-                    isHovering = true;
-                    gsap.to(element, {
-                        scale: 1.05,
-                        duration: 0.4,
-                        ease: "power2.out",
-                        overwrite: true
+                // Hover
+                card1.addEventListener("mouseenter", () => {
+                    gsap.to(card1, {
+                        x: 10,
+                        duration: 0.3,
+                        ease: "power2.out"
                     });
                 });
-
-                element.addEventListener("mouseleave", () => {
-                    isHovering = false;
-                    gsap.to(element, {
-                        scale: 1,
-                        rotationX: 0,
-                        rotationY: 0,
+                card1.addEventListener("mouseleave", () => {
+                    gsap.to(card1, {
                         x: 0,
-                        y: 0,
-                        duration: 0.5,
-                        ease: "elastic.out(1, 0.3)",
-                        overwrite: true
+                        duration: 0.3,
+                        ease: "power2.out"
                     });
                 });
+            }
 
-                // Image parallax
-                if (imgElement) {
-                    gsap.to(imgElement, {
-                        scrollTrigger: {
-                            trigger: element,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: 1
-                        },
-                        y: -30,
-                        ease: "none"
+            // Card 2 - Pulse Motion - Z PRAVA
+            const card2 = document.querySelector("#i5kiv");
+            if (card2) {
+                gsap.from(card2, {
+                    scrollTrigger: {
+                        trigger: card2,
+                        start: "top 85%",
+                    },
+                    x: 200,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "power3.out"
+                });
+
+                // Hover
+                card2.addEventListener("mouseenter", () => {
+                    gsap.to(card2, {
+                        x: -10,
+                        duration: 0.3,
+                        ease: "power2.out"
                     });
-                }
-            });
+                });
+                card2.addEventListener("mouseleave", () => {
+                    gsap.to(card2, {
+                        x: 0,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            }
+
+            // Card 3 - Flow Studio - MACRO ZOOM IN
+            const card3 = document.querySelector("#ieufj");
+            if (card3) {
+                gsap.from(card3, {
+                    scrollTrigger: {
+                        trigger: card3,
+                        start: "top 85%",
+                    },
+                    scale: 0.3,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "back.out(1.7)"
+                });
+
+                // Hover - Scale up
+                card3.addEventListener("mouseenter", () => {
+                    gsap.to(card3, {
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                card3.addEventListener("mouseleave", () => {
+                    gsap.to(card3, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+            }
+
+            // Card 4 - GreenMark - ROTATION FROM MINI
+            const card4 = document.querySelector("#iuqai");
+            if (card4) {
+                gsap.from(card4, {
+                    scrollTrigger: {
+                        trigger: card4,
+                        start: "top 85%",
+                    },
+                    scale: 0.2,
+                    rotation: 360,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power3.out"
+                });
+
+                // Hover - Rotation
+                card4.addEventListener("mouseenter", () => {
+                    gsap.to(card4, {
+                        rotation: 5,
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                card4.addEventListener("mouseleave", () => {
+                    gsap.to(card4, {
+                        rotation: 0,
+                        scale: 1,
+                        duration: 0.5,
+                        ease: "elastic.out(1, 0.5)"
+                    });
+                });
+            }
+
         } catch (error) {
             console.warn('Work cards animation error:', error);
         }
