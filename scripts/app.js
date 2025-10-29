@@ -273,6 +273,12 @@ style.textContent = `
 
     .notification {
         font-weight: 500;
-    }
-`;
+    }function syncNavbarPadding() {
+  const nav = document.querySelector('.navbar.navbar--fixed');
+  if (!nav) return;
+  const h = nav.offsetHeight;
+  document.documentElement.style.setProperty('--navbar-height', h + 'px');
+}
+window.addEventListener('load', syncNavbarPadding);
+window.addEventListener('resize', syncNavbarPadding);`;
 document.head.appendChild(style);
