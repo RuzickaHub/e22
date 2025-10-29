@@ -1,0 +1,64 @@
+--- a/style.css
++++ b/style.css
+@@ /* ====================================  
+- WORK SECTION
++  WORK SECTION
+ ==================================== */
+ #ijxck {
+-  border-top-color: rgba(226, 226, 226, 1);
+-  border-right-color: rgba(226, 226, 226, 1);
+-  border-bottom-color: rgba(226, 226, 226, 1);
+-  border-left-color: rgba(226, 226, 226, 1);
+-  border-bottom-style: solid;
+-  border-top-width: 1px;
+-  border-right-width: 1px;
+-  border-bottom-width: 1px;
+-  border-left-width: 1px;
++  /* odstraněno ruční opakování barev – použijeme zkrácenou syntaxi */
++  border: 1px solid rgba(226, 226, 226, 1);
+   position: relative; /* přidáno pro případ overlay */
+ }
+
+@@ #ij5ox {
+-  width: 100%;
+-  gap: 22px;
+-  margin-top: 22px;
++  width: 100%;
++  gap: 22px;
++  margin-top: 22px;
++  /* Reset překryvné vrstvy při galerii načítání */
++  background: transparent;
++  overflow: hidden;
+ }
+
+@@ #i49hb {
+-  width: 100%;
+-  gap: 22px;
+-  margin-top: 22px;
++  width: 100%;
++  gap: 22px;
++  margin-top: 22px;
++  /* Zajistí, že galerie nezačne s bílou barvou */
++  background: transparent;
+ }
+
++ /* Galerie obrázků – animace načtení bez bílé překryvné vrstvy */
++.gallery-work img,
++.gallery-work .gallery-item {
++  background: transparent !important;
++  opacity: 0;
++  transform: translateY(20px);
++  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
++}
++.gallery-work img.loaded,
++.gallery-work .gallery-item.visible {
++  opacity: 1;
++  transform: translateY(0);
++}
++.gallery-work .overlay-white {
++  opacity: 0 !important;
++  background: transparent !important;
++  pointer-events: none;
++  transition: opacity 0.4s ease-out;
++}
+
