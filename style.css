@@ -8,6 +8,8 @@
 body {
   margin: 0;
   scroll-behavior: smooth;
+  background-color: #ffffff;
+  padding-top: 0 !important;
 }
 
 :root {
@@ -70,6 +72,8 @@ body {
 .gjs-section {
   display: flex;
   padding: 50px 0;
+  position: relative;
+  z-index: 1;
 }
 
 .gjs-plg-flex-row {
@@ -173,7 +177,7 @@ body {
 }
 
 /* ====================================
-   WORK SECTION
+   WORK SECTION - FIXED
    ==================================== */
 #ijxck {
   border-top-color: rgba(226, 226, 226, 1);
@@ -185,6 +189,9 @@ body {
   border-right-width: 1px;
   border-bottom-width: 1px;
   border-left-width: 1px;
+  background-color: transparent !important;
+  position: relative;
+  z-index: 2;
 }
 
 #iz9gv {
@@ -221,6 +228,16 @@ body {
 #iuqai {
   flex-basis: 50%;
   position: relative;
+  background-color: transparent !important;
+  overflow: hidden;
+}
+
+/* WORK SECTION IMAGE CONTAINERS - WHITE OVERLAY FIX */
+#ie33q::before,
+#i5kiv::before,
+#ieufj::before,
+#iuqai::before {
+  display: none !important;
 }
 
 #itt22,
@@ -233,6 +250,10 @@ body {
   left: 35px;
   bottom: 25px;
   color: white;
+  z-index: 3;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  margin: 0;
+  padding: 0;
 }
 
 #iqc0c,
@@ -240,6 +261,19 @@ body {
 #iqc0c-5,
 #iqc0c-4-2 {
   width: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* Remove any potential white overlays on work images */
+#iqc0c::after,
+#iqc0c-4::after,
+#iqc0c-5::after,
+#iqc0c-4-2::after {
+  content: none !important;
 }
 
 /* ====================================
@@ -420,10 +454,10 @@ body {
 }
 
 /* ====================================
-   NAVBAR
+   NAVBAR - WHITE OVERLAY FIXED
    ==================================== */
 .navbar {
-  background-color: #222;
+  background-color: transparent !important;
   color: #ddd;
   min-height: 50px;
   width: 100%;
@@ -508,20 +542,14 @@ body {
   float: right;
 }
 
+/* NAVBAR WHITE OVERLAY FIX */
 #iq615l {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: transparent !important;
   color: rgba(0, 0, 0, 1);
   font-weight: 500;
-  border-top-color: rgba(226, 226, 226, 1);
-  border-right-color: rgba(226, 226, 226, 1);
-  border-bottom-color: rgba(226, 226, 226, 1);
-  border-left-color: rgba(226, 226, 226, 1);
-  border-bottom-style: solid;
-  border-top-width: 1px;
-  border-right-width: 1px;
-  border-bottom-width: 1px;
-  border-left-width: 1px;
+  border: none !important;
   font-family: Manrope;
+  backdrop-filter: none !important;
 }
 
 #iixa7u {
@@ -596,11 +624,11 @@ body {
   backface-visibility: hidden;
 }
 
-/* Navbar Scrolled State */
+/* Navbar Scrolled State - WHITE OVERLAY FIXED */
 #iq615l.gsap-scrolled {
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
   transition: all 0.3s ease;
 }
 
@@ -627,6 +655,29 @@ img {
 /* Loading States */
 .gsap-loading {
   opacity: 0;
+}
+
+/* ====================================
+   WHITE OVERLAY FIXES
+   ==================================== */
+/* Remove all potential white overlays */
+*::before,
+*::after {
+  background-color: transparent !important;
+}
+
+/* Ensure work section images are clean */
+#ijxck * {
+  background-color: transparent !important;
+}
+
+/* Fix any pseudo-element overlays */
+#ie33q::after,
+#i5kiv::after,
+#ieufj::after,
+#iuqai::after {
+  content: none !important;
+  display: none !important;
 }
 
 /* ====================================
@@ -948,17 +999,37 @@ img {
   .navbar,
   .gsap-progress-bar {
     display: none;
-
-     /*animations*/
-     .navbar.navbar--fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-}
-:root { --navbar-height: 0px; }
-body { padding-top: var(--navbar-height); transition: padding-top .2s ease; }
-
   }
+}
+
+/* ====================================
+   FINAL WHITE OVERLAY FIXES
+   ==================================== */
+/* Remove any remaining white backgrounds */
+body {
+  background: #ffffff;
+}
+
+/* Ensure work section is completely clean */
+#ijxck,
+#ijxck .gjs-container,
+#ijxck .gjs-plg-flex-row,
+#ijxck .gjs-plg-flex-column {
+  background: transparent !important;
+}
+
+/* Force remove any white overlays on work images */
+#iqc0c,
+#iqc0c-4,
+#iqc0c-5,
+#iqc0c-4-2 {
+  background: transparent !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* Remove any CSS filters that might cause white overlay */
+#ijxck img {
+  filter: none !important;
+  mix-blend-mode: normal !important;
 }
