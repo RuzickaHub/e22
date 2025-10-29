@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Home</title>
+    <title>Until design fluent — Home</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="robots" content="index,follow" />
@@ -25,317 +25,326 @@
         src: url("https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRsgW7S9XdZN8.woff2");
         font-weight: 200 800;
       }
+
+      /* drobná základní pomocná stylová pravidla (pokud chybí ve style.css) */
+      :root { --max-w: 1100px; --gap: 24px; }
+      body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; color:#111; line-height:1.5; }
+      .navbar { background: transparent; position:sticky; top:0; z-index:50; padding:16px 12px; display:flex; justify-content:center; border-bottom: 1px solid rgba(0,0,0,0.04); }
+      .navbar-cnt { width:100%; max-width:var(--max-w); display:flex; align-items:center; gap:12px; }
+      .navbar-brand h2 { margin:0; font-size:18px; letter-spacing:0.06em; }
+      .navbar-menu-toggle { margin-left:auto; display:none; cursor:pointer; }
+      .navbar-items-c { margin-left:auto; }
+      nav.navbar-menu-nav { display:flex; gap:18px; align-items:center; }
+      nav.navbar-menu-nav a { text-decoration:none; color:inherit; cursor:pointer; padding:8px 10px; border-radius:6px; }
+      nav.navbar-menu-nav a:hover { background:rgba(0,0,0,0.04); }
+
+      .gjs-section { padding:64px 12px; }
+      .gjs-container { max-width:var(--max-w); margin:0 auto; }
+      .gjs-plg-flex-row { display:flex; gap:var(--gap); align-items:flex-start; flex-wrap:wrap; }
+      .gjs-plg-flex-column { flex:1; min-width:260px; }
+      h1 { margin:0 0 12px 0; font-size:28px; }
+      h2.section-title { font-size:22px; margin-bottom:12px; }
+      .hero { padding:88px 12px 64px; display:flex; align-items:center; }
+      .hero-inner { display:flex; gap:40px; align-items:center; width:100%; }
+      .hero-left { flex:1; min-width:320px; }
+      .hero-right { flex:1; min-width:320px; text-align:right; }
+      .hero h1 { font-size:40px; line-height:1.05; margin-bottom:18px; }
+      .hero p.lead { font-size:18px; color:#444; margin-bottom:18px; }
+      .btn { display:inline-block; padding:12px 18px; border-radius:8px; text-decoration:none; background:#111; color:#fff; }
+      .btn.secondary { background:transparent; border:1px solid #111; color:#111; margin-left:12px; }
+      .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; }
+      .card { padding:18px; border-radius:10px; border:1px solid rgba(0,0,0,0.06); background:#fff; }
+      .portfolio-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+      .portfolio-item img { width:100%; height:180px; object-fit:cover; border-radius:8px; display:block; margin-bottom:8px; }
+      .footer { padding:36px 12px; background:#fafafa; border-top:1px solid rgba(0,0,0,0.03); }
+      @media (max-width:900px) {
+        .navbar-menu-toggle { display:block; }
+        .navbar-items-c { display:none; position:absolute; right:12px; top:64px; background:#fff; border:1px solid rgba(0,0,0,0.06); padding:12px; border-radius:8px; }
+        .navbar-items-c.open { display:block; }
+        .hero-right { text-align:left; margin-top:20px; }
+      }
     </style>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body id="ihtf">
+    <!-- NAVBAR -->
     <div id="iq615l" class="navbar">
       <div data-gjs="navbar" id="iior1j" class="navbar-cnt">
-        <a href="/" id="i5oaqd" class="navbar-brand"
-          ><div id="iixa7u"><h2 id="iyz0u6">RJ</h2></div></a
-        >
-        <div id="iolu3z" class="navbar-menu-toggle">
-          <div data-type-icon id="i82o3f" class="gjs-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
-              <path
-                fill="currentColor"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-width="2"
-                d="M2 2h8M2 6h8m-8 4h8"
-              ></path>
+        <a href="/" id="i5oaqd" class="navbar-brand">
+          <div id="iixa7u"><h2 id="iyz0u6">RJ — Until design fluent</h2></div>
+        </a>
+        <div id="iolu3z" class="navbar-menu-toggle" aria-expanded="false" aria-controls="ieo412">
+          <div data-type-icon id="i82o3f" class="gjs-icon" title="Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" width="20" height="20">
+              <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M2 2h8M2 6h8m-8 4h8"></path>
             </svg>
           </div>
         </div>
-        <div data-gjs="navbar-items" id="ieo412" class="navbar-items-c">
+        <div data-gjs="navbar-items" id="ieo412" class="navbar-items-c" role="navigation">
           <nav id="ir89yc" class="navbar-menu-nav">
-            <a id="ilmusq">Home</a><a id="ikdp7">About</a
-            ><a id="i1r5z">Contact</a>
+            <a href="#design">Design</a>
+            <a href="#webdesign">Webdesign</a>
+            <a href="#identita">Identita značky</a>
+            <a href="#promo">Propagační materiál</a>
+            <a href="#appui">APP UI</a>
+            <a href="#cenik">Ceník</a>
+            <a href="#kontakt">Kontakt</a>
           </nav>
         </div>
       </div>
     </div>
-    <section id="iyp5" class="gjs-section">
-      <div id="iyox" class="gjs-container">
-        <div data-type-role="flex-row" id="ivof" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="ie5f"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="i4tkr">RUZICKA<br data-gs-ib="" />JAKUB</h1>
-            <a id="ifjoh" class="gjs-link-box"
-              ><div id="ian75">mail@ruzickajakub.cz</div>
-              <div data-type-icon id="ih6oh" class="gjs-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                  <path
-                    fill="currentColor"
-                    d="M4 4.085V10.5a2.5 2.5 0 0 0 2.336 2.495L6.5 13h4.414A1.5 1.5 0 0 1 9.5 14H6a3 3 0 0 1-3-3V5.5a1.5 1.5 0 0 1 1-1.415M11.5 2A1.5 1.5 0 0 1 13 3.5v7a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 5 10.5v-7A1.5 1.5 0 0 1 6.5 2zm0 1h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5"
-                  ></path>
-                </svg></div
-            ></a>
-          </div>
-          <div
-            data-type-role="flex-column"
-            id="iqvw"
-            class="gjs-plg-flex-column"
-          >
-            <img
-              id="iv2wn"
-              src="https://cdn.grapesjs.com/workspaces/cmc4xkttt0df99wj7woejj4g8/assets/7091231e-9571-458e-a79b-d47e0c83e80b__lena-5.webp"
-            /><span id="im13y"
-              >Designer a Frontend Developer specializující se na tvorbu UI/UX
-              intuitivních digitálních řešení. Zaměřuji se na komplexní proces
-              designu od wireframů po finální implementaci.</span
-            >
-          </div>
+
+    <!-- HERO -->
+    <section id="hero" class="gjs-section hero">
+      <div class="gjs-container hero-inner">
+        <div class="hero-left">
+          <h1>Until design fluent — design, který dává smysl</h1>
+          <p class="lead">
+            Navrhuji přirozené UI/UX, které uživatele vede. Responzivní weby a aplikace navržené s důrazem na přístupnost, výkon a obchodní výsledky.
+          </p>
+          <a class="btn" href="#portfolio">Prohlédnout portfolio</a>
+          <a class="btn secondary" href="#kontakt">Požádat o konzultaci</a>
+          <div style="margin-top:16px; color:#666;">Email: <a href="mailto:hello@jakubruzicka.cz">hello@jakubruzicka.cz</a></div>
+        </div>
+        <div class="hero-right">
+          <img src="https://cdn.grapesjs.com/workspaces/cmc4xkttt0df99wj7woejj4g8/assets/7091231e-9571-458e-a79b-d47e0c83e80b__lena-5.webp" alt="Portrait" style="max-width:320px;border-radius:12px;display:block;margin-left:auto;">
+          <p style="margin-top:12px; color:#444;">Designer a Frontend Developer specializující se na tvorbu UI/UX intuitivních digitálních řešení — od wireframů po finální implementaci.</p>
         </div>
       </div>
     </section>
-    <section id="ijxck" class="gjs-section">
+
+    <!-- Služby / Services -->
+    <section id="design" class="gjs-section">
       <div class="gjs-container">
-        <div data-type-role="flex-row" id="iz9gv" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="ijkxv"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="i1bcf">Work</h1>
+        <h2 class="section-title">Design — UX & UI návrh</h2>
+        <div class="gjs-plg-flex-row">
+          <div class="gjs-plg-flex-column card">
+            <h3>Co nabízím</h3>
+            <ul>
+              <li>Uživatelské průzkumy a tvorba person</li>
+              <li>Informations architecture (IA) a user flows</li>
+              <li>Wireframy a interaktivní hi-fi prototypy (Figma / Framer)</li>
+              <li>Design systém a dokumentace komponent</li>
+            </ul>
+            <p><a class="btn" href="#kontakt">Domluvit UX audit</a></p>
           </div>
-        </div>
-        <div data-type-role="flex-row" id="ij5ox" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="ie33q"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="itt22">Dreamscapes</h1>
-            <img
-              id="iqc0c"
-              src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/7a44ceaa-1a4c-4e44-8734-0bf4d4452437__a-photograph-of-a-monolithic-stone-struc7bjogt7lrj2r4uzvs2ijrwlg0oydnbspgszjtqmlil1w.jpeg"
-              class="gjs-t-border"
-            />
+
+          <div class="gjs-plg-flex-column card">
+            <h3>Webdesign</h3>
+            <p>Tvořím moderní, responzivní a rychlé weby — od jednoduchých landingů po komplexní SPA. Implementace v Tailwind CSS, React/Next.js nebo čistém HTML/CSS podle potřeby.</p>
+            <p>• Performance optimalizace • Přístupnost (WCAG) • SEO základy</p>
+            <p><a class="btn" href="#kontakt">Získat nabídku na web</a></p>
           </div>
-          <div
-            data-type-role="flex-column"
-            id="i5kiv"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="ib9zk">Pulse Motion</h1>
-            <img
-              id="iqc0c-4"
-              src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/ffbb67d1-a9c4-4c91-9536-290f30039ff2__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90035.jpeg"
-              class="gjs-t-border"
-            />
+
+          <div class="gjs-plg-flex-column card">
+            <h3>Identita značky</h3>
+            <p>Vytvořím jednotnou vizuální identitu — logo, typografii, paletu barev a pravidla použití pro web i tisk.</p>
+            <p><a class="btn" href="#kontakt">Nechat si navrhnout identitu</a></p>
           </div>
-        </div>
-        <div data-type-role="flex-row" id="i49hb" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="ieufj"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="ivdo7">Flow Studio</h1>
-            <img
-              id="iqc0c-5"
-              src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/0334590a-6d93-484a-9c17-9d650834a7e5__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90033.jpeg"
-              class="gjs-t-border"
-            />
+
+          <div class="gjs-plg-flex-column card">
+            <h3>Propagační materiál</h3>
+            <p>Grafika pro kampaně, sociální sítě, tiskoviny a prezentační materiály, sladěná se značkou. Dodávám tiskovou přípravu (PDF) i exporty pro online kampaně.</p>
+            <p><a class="btn" href="#kontakt">Vytvořit materiály</a></p>
           </div>
-          <div
-            data-type-role="flex-column"
-            id="iuqai"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="ihsfk">GreenMark</h1>
-            <img
-              id="iqc0c-4-2"
-              src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/ffbb67d1-a9c4-4c91-9536-290f30039ff2__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90035.jpeg"
-              class="gjs-t-border"
-            />
+
+          <div class="gjs-plg-flex-column card">
+            <h3>APP UI</h3>
+            <p>Navrhuji uživatelská rozhraní pro mobilní i desktopové aplikace: dashboardy, administrační panely a mobilní UX s důrazem na efektivitu práce uživatele.</p>
+            <p><a class="btn" href="#kontakt">Konzultace pro aplikaci</a></p>
           </div>
         </div>
       </div>
     </section>
-    <section id="iawlf" class="gjs-section">
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="gjs-section">
       <div class="gjs-container">
-        <div data-type-role="flex-row" id="ibdtm" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="ioq1g"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="i8uif">About.</h1>
-            <span id="i2sah"
-              >Specializuji se na komplexní UI/UX design s důrazem na
-              uživatelskou přívětivost a přístupnost. Využívám nejmodernější
-              technologie a postupy pro vytváření responzivních webových
-              aplikací.</span
-            >
+        <h2 class="section-title">Vybrané projekty</h2>
+        <p style="color:#555; margin-bottom:18px;">Ukázky projektů — každý projekt obsahuje výzvu, řešení a výsledky. Níže náhledy, detail každého projektu může být rozpracovaný jako samostatná case study.</p>
+
+        <div class="portfolio-grid">
+          <div class="portfolio-item card">
+            <img src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/7a44ceaa-1a4c-4e44-8734-0bf4d4452437__a-photograph-of-a-monolithic-stone-struc7bjogt7lrj2r4uzvs2ijrwlg0oydnbspgszjtqmlil1w.jpeg" alt="Dreamscapes">
+            <h4>Dreamscapes</h4>
+            <p>Design koncept a implementace interaktivního portfolia.</p>
           </div>
-          <div
-            data-type-role="flex-column"
-            id="idb68"
-            class="gjs-plg-flex-column"
-          ></div>
+
+          <div class="portfolio-item card">
+            <img src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/ffbb67d1-a9c4-4c91-9536-290f30039ff2__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90035.jpeg" alt="Pulse Motion">
+            <h4>Pulse Motion</h4>
+            <p>Branding a UI pro mobilní produkt.</p>
+          </div>
+
+          <div class="portfolio-item card">
+            <img src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/0334590a-6d93-484a-9c17-9d650834a7e5__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90033.jpeg" alt="Flow Studio">
+            <h4>Flow Studio</h4>
+            <p>Dashboard UI s důrazem na čitelnost a vizuální hierarchii.</p>
+          </div>
+
+          <div class="portfolio-item card">
+            <img src="https://cdn.grapesjs.com/workspaces/cmh884arm2nz4duap9tf0dmfu/assets/ffbb67d1-a9c4-4c91-9536-290f30039ff2__freepikthe-style-is-soft-plain-illustration-with-fluid-pa90035.jpeg" alt="GreenMark">
+            <h4>GreenMark</h4>
+            <p>Identita značky a marketingové materiály pro eko-startup.</p>
+          </div>
         </div>
-        <div data-type-role="flex-row" id="ixlyq" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="igtgc"
-            class="gjs-plg-flex-column"
-          >
-            <img
-              id="i4q0l"
-              src="https://cdn.grapesjs.com/workspaces/cmc4xkttt0df99wj7woejj4g8/assets/00325cd9-d201-4dfc-8ce9-03fd73914f5d__lena-2.webp"
-              class="gjs-t-border"
-            />
+
+        <p style="margin-top:18px;"><a class="btn" href="#kontakt">Zobrazit detail případu</a></p>
+      </div>
+    </section>
+
+    <!-- Proces -->
+    <section id="proces" class="gjs-section">
+      <div class="gjs-container">
+        <h2 class="section-title">Proces — jak pracuji</h2>
+        <p style="color:#555;">Krátký přehled 5 kroků, podle kterých vedu projekty. Prakticky i transparentně.</p>
+
+        <div class="gjs-plg-flex-row" style="margin-top:12px;">
+          <div class="card">
+            <h4>1. Brief & research</h4>
+            <p>Definujeme cíle projektu, zjistíme potřeby uživatelů a stanovíme metriky úspěchu.</p>
           </div>
-          <div
-            data-type-role="flex-column"
-            id="imgw5"
-            class="gjs-plg-flex-column"
-          >
-            <span id="ijnrc"
-              >Specializuji se na komplexní návrh uživatelského rozhraní (UI) a uživatelského zážitku (UX) s důrazem na detail, přístupnost a intuitivní interakci. Každý projekt vnímám jako propojení estetiky a funkčnosti – cílem není jen vytvořit vizuálně atraktivní design, ale především systém, který uživatelům umožní snadno a přirozeně dosáhnout jejich cílů.</span
-            >
+
+          <div class="card">
+            <h4>2. Koncept & wireframe</h4>
+            <p>Struktura obsahu, user flows a nízkoúrovňové wireframy pro rychlou validaci konceptu.</p>
+          </div>
+
+          <div class="card">
+            <h4>3. Prototyp & testování</h4>
+            <p>Interaktivní prototypy, uživatelské testování a sběr zpětné vazby pro ověření rozhodnutí.</p>
+          </div>
+
+          <div class="card">
+            <h4>4. Implementace</h4>
+            <p>Převod designu do produkční podoby, handoff pro vývojáře a podpůrná dokumentace.</p>
+          </div>
+
+          <div class="card">
+            <h4>5. Iterace & měření</h4>
+            <p>A/B testování, sledování metrik a dolaďování pro dlouhodobý úspěch produktu.</p>
           </div>
         </div>
       </div>
     </section>
-    <section id="i4bac" class="gjs-section">
-      <div id="ivs9j" class="gjs-container">
-        <div id="i2fjb">Linkedin Twitter Behance</div>
-        <h1 id="iuuay">
-          Proces práce stavím na analýze, testování a neustálém zlepšování. Každý detail – od mikrointerakcí po strukturu informací – navrhuji s ohledem na jasnost, rychlost a použitelnost. Výsledkem je digitální produkt, který působí přirozeně, přehledně a profesionálně.
-        </h1>
-        <div data-type-role="flex-row" id="ityzk" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="ik5ea"
-            class="gjs-plg-flex-column"
-          >
-            <a id="iyeh2" href="#" class="gjs-t-link gjs-t-border"
-              >Start a Project</a
-            >
-            <div data-type-role="flex-row" id="iaao4" class="gjs-plg-flex-row">
-              <div
-                data-type-role="flex-column"
-                id="ifeve"
-                class="gjs-plg-flex-column"
-              >
-                <div data-type-icon id="izf5a" class="gjs-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                      fill="currentColor"
-                      d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12"
-                    ></path>
-                  </svg>
-                </div>
-                <div id="isv5y">Available for new collaborations.</div>
-              </div>
-            </div>
+
+    <!-- Ceník -->
+    <section id="cenik" class="gjs-section">
+      <div class="gjs-container">
+        <h2 class="section-title">Ceník — orientační balíčky</h2>
+        <p style="color:#555;">Ceny jsou orientační — přesná kalkulace závisí na rozsahu a požadavcích projektu.</p>
+
+        <div class="cards" style="margin-top:16px;">
+          <div class="card">
+            <h3>Start</h3>
+            <p>Jednoduchá landing page (design + 1 iterace)</p>
+            <p><strong>od 30 000 Kč</strong></p>
+          </div>
+
+          <div class="card">
+            <h3>Growth</h3>
+            <p>Firemní web / malý e-shop</p>
+            <p><strong>od 70 000 Kč</strong></p>
+          </div>
+
+          <div class="card">
+            <h3>Scale</h3>
+            <p>Komplexní web / aplikace + design systém</p>
+            <p><strong>od 180 000 Kč</strong></p>
+          </div>
+
+          <div class="card">
+            <h3>Doplňky</h3>
+            <p>UX audit: od 8 000 Kč / den · Rychlý prototyp: od 12 000 Kč</p>
           </div>
         </div>
-        <div data-type-role="flex-row" id="iyavz" class="gjs-plg-flex-row">
-          <div
-            data-type-role="flex-column"
-            id="i5g8k"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="i1xwm">hello@Lena.com</h1>
+
+        <p style="margin-top:18px;"><a class="btn" href="#kontakt">Požádat o přesnou kalkulaci</a></p>
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section id="kontakt" class="gjs-section">
+      <div class="gjs-container">
+        <h2 class="section-title">Kontakt</h2>
+        <p style="color:#555;">Máš projekt, nápad nebo chceš konzultaci? Napiš mi — odpovím obvykle do 48 hodin.</p>
+
+        <div style="display:grid; grid-template-columns:1fr 320px; gap:20px; margin-top:18px;">
+          <div class="card">
+            <form id="contactForm" action="#" onsubmit="event.preventDefault(); alert('Poptávka odeslána — nahraďte alert skutečným odesílacím skriptem.');">
+              <label>Jméno<br/><input type="text" name="name" required style="width:100%; padding:8px; margin-top:6px;" /></label><br/><br/>
+              <label>E-mail<br/><input type="email" name="email" required style="width:100%; padding:8px; margin-top:6px;" /></label><br/><br/>
+              <label>Typ projektu<br/>
+                <select name="type" style="width:100%; padding:8px; margin-top:6px;">
+                  <option>Web</option>
+                  <option>Aplikace</option>
+                  <option>Branding</option>
+                  <option>Marketing / Bannery</option>
+                  <option>Jiné</option>
+                </select>
+              </label><br/><br/>
+              <label>Stručný popis<br/><textarea name="message" rows="5" style="width:100%; padding:8px; margin-top:6px;"></textarea></label><br/><br/>
+              <label>Orientační rozpočet (volitelně)<br/><input type="text" name="budget" style="width:100%; padding:8px; margin-top:6px;" /></label><br/><br/>
+              <button class="btn" type="submit">Poslat poptávku</button>
+            </form>
           </div>
-          <div
-            data-type-role="flex-column"
-            id="imwy1"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="i57k0v">Designed &amp; Developed</h1>
-            <h1 id="i3lce">All rights reserved</h1>
-          </div>
-          <div
-            data-type-role="flex-column"
-            id="ix16d"
-            class="gjs-plg-flex-column"
-          >
-            <h1 id="im1i8g">GRAP ©2025</h1>
+
+          <div class="card">
+            <h4>Kontaktní údaje</h4>
+            <p>Email: <a href="mailto:hello@jakubruzicka.cz">hello@jakubruzicka.cz</a></p>
+            <p>LinkedIn · Twitter · Behance</p>
+            <p style="margin-top:12px; color:#666;">Krátká odpověď do 48 hodin. 14denní podpora po dodání projektu.</p>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="gjs-container">
+        <div style="display:flex; gap:24px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+          <div>
+            <strong>Until design fluent</strong><br/>
+            © <span id="year"></span> Until design fluent — UX/UI design & frontend development. Všechna práva vyhrazena.
+          </div>
+          <div style="color:#666;">
+            <a href="#proces">Proces</a> · <a href="#cenik">Ceník</a> · <a href="#kontakt">Kontakt</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
     <script>
-      var items = document.querySelectorAll("#iolu3z");
-      for (var i = 0, len = items.length; i < len; i++) {
-        (function () {
-          var n,
-            t = this,
-            e = "gjs-collapse",
-            a = "max-height",
-            o = 0,
-            i = (function () {
-              var n = document.createElement("void"),
-                t = {
-                  transition: "transitionend",
-                  OTransition: "oTransitionEnd",
-                  MozTransition: "transitionend",
-                  WebkitTransition: "webkitTransitionEnd",
-                };
-              for (var e in t) if (void 0 !== n.style[e]) return t[e];
-            })(),
-            r = function (n) {
-              o = 1;
-              var t = (function (n) {
-                  var t = window.getComputedStyle(n),
-                    e = t.display,
-                    o = parseInt(t[a]);
-                  if ("none" !== e && 0 !== o) return n.offsetHeight;
-                  (n.style.height = "auto"),
-                    (n.style.display = "block"),
-                    (n.style.position = "absolute"),
-                    (n.style.visibility = "hidden");
-                  var i = n.offsetHeight;
-                  return (
-                    (n.style.height = ""),
-                    (n.style.display = ""),
-                    (n.style.position = ""),
-                    (n.style.visibility = ""),
-                    i
-                  );
-                })(n),
-                e = n.style;
-              (e.display = "block"),
-                (e.transition = "".concat(a, " 0.25s ease-in-out")),
-                (e.overflowY = "hidden"),
-                "" == e[a] && (e[a] = 0),
-                0 == parseInt(e[a])
-                  ? ((e[a] = "0"),
-                    setTimeout(function () {
-                      e[a] = t + "px";
-                    }, 10))
-                  : (e[a] = "0");
-            };
-          e in t ||
-            t.addEventListener("click", function (e) {
-              if ((e.preventDefault(), !o)) {
-                var l = t.closest("[data-gjs=navbar]"),
-                  c =
-                    null == l
-                      ? void 0
-                      : l.querySelector("[data-gjs=navbar-items]");
-                c && r(c),
-                  n ||
-                    (null == c ||
-                      c.addEventListener(i, function () {
-                        o = 0;
-                        var n = c.style;
-                        0 == parseInt(n[a]) && ((n.display = ""), (n[a] = ""));
-                      }),
-                    (n = 1));
+      // vložení aktuálního roku do patičky
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // jednoduché chování pro mobilní menu
+      (function() {
+        var toggle = document.getElementById('iolu3z');
+        var items = document.getElementById('ieo412');
+        toggle && toggle.addEventListener('click', function () {
+          var open = items.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        // hladké scrollování pro interní odkazy
+        document.querySelectorAll('a[href^="#"]').forEach(function(a){
+          a.addEventListener('click', function(e){
+            var target = a.getAttribute('href');
+            if (target.length > 1) {
+              var el = document.querySelector(target);
+              if (el) {
+                e.preventDefault();
+                var top = el.getBoundingClientRect().top + window.pageYOffset - 70; // odsazení kvůli navbaru
+                window.scrollTo({top: top, behavior:'smooth'});
+                // zavřít menu na mobilu
+                if (items.classList.contains('open')) items.classList.remove('open');
               }
-            }),
-            (t[e] = 1);
-        }).bind(items[i])();
-      }
+            }
+          });
+        });
+      })();
     </script>
+
   </body>
 </html>
