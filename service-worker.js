@@ -12,7 +12,6 @@ const urlsToCache = [
   '/e22/favicon.svg',
   '/e22/icons/icon-192.png',
   '/e22/icons/icon-512.png',
-  // externí fonty - budeme je fetchovat bezpečně (no-cors fallback)
   'https://fonts.gstatic.com/s/inter/v20/UcCo3FwrK3iLTfvgaQc78lA2.woff2',
   'https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRsgW7S9XdZN8.woff2'
 ];
@@ -21,20 +20,15 @@ const urlsToCache = [
 async function safeCacheResources(cache, resources) {
   const promises = resources.map(async (resource) => {
     try {
-      // externí zdroje (http/https) můžou vyžadovat no-cors; fetch je ovšem nutné ošetřit
       if (/^https?:\/\//i.test(resource) && !resource.startsWith(self.location.origin)) {
         const resp = await fetch(resource, { mode: 'no-cors' }).catch(() => null);
         if (resp && resp.ok) {
           try { await cache.put(resource, resp.clone()); } catch (e) { /* ignore */ }
-        } else {
-          // fallback: ignoruj (nepřeruší instalaci)
         }
       } else {
-        // same-origin - bez problémů
         await cache.add(resource);
       }
     } catch (err) {
-      // loguj, ale nenech zkazit instalaci
       console.warn('[SW] safeCacheResources failed for', resource, err);
     }
   });
@@ -67,35 +61,26 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// FETCH: mix cache-first pro statické assety a network-first pro API/navigace
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
-  // ignoruj chrome-extension: nebo jiné ne-webové požadavky
   if (url.protocol.startsWith('chrome-extension')) return;
-
-  // cross-origin fonts/images handled via cache on install; ale fetchable here too
-  // pokud request není GET -> ignoruj
   if (req.method !== 'GET') return;
 
-  // Network-first pro API požadavky (pokud máš /api/ endpointy)
   if (req.url.includes('/api/')) {
     event.respondWith(networkFirst(req));
     return;
   }
 
-  // Navigace: preferuj network (aby se načítal aktuální content), fallback na index
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req).then(response => {
-        // update runtime cache
         const copy = response.clone();
         caches.open(RUNTIME_CACHE).then(cache => cache.put(req, copy));
         return response;
       }).catch(async () => {
         const cache = await caches.open(CACHE_NAME);
-        // fallback na cached index.html (pro SPA/navigaci)
         const cachedIndex = await cache.match('/e22/index.html') || await cache.match('/e22/');
         return cachedIndex || new Response('Offline', { status: 503, statusText: 'Offline' });
       })
@@ -103,27 +88,22 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // statické assety: cache-first
   event.respondWith(cacheFirst(req));
 });
 
 async function cacheFirst(request) {
   const cache = await caches.open(CACHE_NAME);
   const cached = await cache.match(request);
-  if (cached) {
-    // console.log('[Service Worker] From cache:', request.url);
-    return cached;
-  }
+  if (cached) return cached;
   try {
     const response = await fetch(request);
     if (response && response.status === 200) {
       const responseClone = response.clone();
       const runtime = await caches.open(RUNTIME_CACHE);
-      try { await runtime.put(request, responseClone); } catch (e) { /* ignore */ }
+      try { await runtime.put(request, responseClone); } catch (e) {}
     }
     return response;
   } catch (err) {
-    // pokud se nedaří, zkus offline.html
     const offline = await cache.match('/e22/offline.html') || cache.match('/e22/index.html');
     return offline || new Response('Offline - stránka není dostupná', { status: 503, headers: { 'Content-Type': 'text/plain' }});
   }
@@ -135,7 +115,7 @@ async function networkFirst(request) {
     if (response && response.status === 200) {
       const copy = response.clone();
       const runtime = await caches.open(RUNTIME_CACHE);
-      try { await runtime.put(request, copy); } catch (e) { /* ignore */ }
+      try { await runtime.put(request, copy); } catch (e) {}
     }
     return response;
   } catch (err) {
@@ -145,25 +125,18 @@ async function networkFirst(request) {
   }
 }
 
-// Messaging: skip waiting / clear caches
 self.addEventListener('message', (event) => {
   if (!event.data) return;
-  if (event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
+  if (event.data.type === 'SKIP_WAITING') self.skipWaiting();
   if (event.data.type === 'CLEAR_CACHE') {
-    event.waitUntil(
-      caches.keys().then(names => Promise.all(names.map(n => caches.delete(n))))
-    );
+    event.waitUntil(caches.keys().then(names => Promise.all(names.map(n => caches.delete(n)))));
   }
 });
 
-// Optional: sync/push placeholders (pokud je nepoužíváš, lze je odstranit)
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-messages') {
     event.waitUntil((async () => {
       console.log('[SW] Sync event fired: sync-messages');
-      // sem implementuj sync queue flush
     })());
   }
 });
