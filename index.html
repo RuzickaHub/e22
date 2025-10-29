@@ -309,6 +309,22 @@
 
   <!-- Original App.js (Optional) -->
   <script src="./scripts/app.js"></script>
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/e22/service-worker.js', { scope: '/e22/' })
+      .then(reg => {
+        console.log('SW registered:', reg);
+        // pokud chceš okamžitě aktivovat novou verzi:
+        if (reg.waiting) {
+          // pošle signál k aktivaci
+          reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+      })
+      .catch(err => console.error('SW registration failed:', err));
+  });
+}
+</script>
 
   <!-- Service Worker Registration -->
   <script>
